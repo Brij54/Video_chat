@@ -1,0 +1,41 @@
+# ansible/deploy.yml
+---
+- name: Deploy Video Chat Application
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m`
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Pull latest backend image
+      docker_image:
+        name: your-dockerhub-username/backend
+        tag: latest
+        source: pull
+
+    - name: Pull latest frontend image
+      docker_image:
+        name: your-dockerhub-username/frontend
+        tag: latest
+        source: pull
+
+    - name: Ensure docker-compose.yml is present
+      copy:
+        src: /path/to/your/docker-compose.yml
+        dest: /home/your-ssh-user/docker-compose.yml
+
+    - name: Run docker-compose
+      shell: docker-compose -f /home/your-ssh-user/docker-compose.yml up -d
