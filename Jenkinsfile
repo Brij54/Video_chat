@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/your-repo/video-chat-app.git'
+                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/Brij54/Video_chat.git'
             }
         }
 
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'docker build -t your-dockerhub-username/backend:latest .'
+                        sh 'docker build -t brij8511/backend:latest .'
                     }
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'docker build -t your-dockerhub-username/frontend:latest .'
+                        sh 'docker build -t brij8511/frontend:latest .'
                     }
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'docker run --rm your-dockerhub-username/backend:latest npm test'
+                        sh 'docker run --rm brij8511/backend:latest npm test'
                     }
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'docker run --rm your-dockerhub-username/frontend:latest npm test'
+                        sh 'docker run --rm brij8511/frontend:latest npm test'
                     }
                 }
             }
@@ -58,8 +58,8 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push your-dockerhub-username/backend:latest'
-                    sh 'docker push your-dockerhub-username/frontend:latest'
+                    sh 'docker push brij8511/backend:latest'
+                    sh 'docker push brij8511/frontend:latest'
                 }
             }
         }
