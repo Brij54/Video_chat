@@ -1,7 +1,6 @@
 ---
 - name: Deploy Application
   hosts: localhost
-  remote_user: brij
   become: true
   connection: local
 
