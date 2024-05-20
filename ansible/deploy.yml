@@ -24,7 +24,7 @@
     #   args:
     #     chdir: /opt/
 
-      name : Run containers using docker-compose
+    - name : Run containers using docker-compose
       command : docker-compose up -d
       args:
         chdir: /var/lib/jenkins/workspace/Videochat
