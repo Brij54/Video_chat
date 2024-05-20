@@ -1,26 +1,31 @@
 ---
 - name: Deploy Application
   hosts: localhost
-  become: true
   connection: local
 
   tasks:
-    - name: Pull server image
-      docker_image:
-        name: "zoomclone-backend"
-        source: pull
+    # - name: Pull server image
+    #   docker_image:
+    #     name: "zoomclone-backend"
+    #     source: pull
 
-    - name: Pull client image
-      docker_image:
-        name: "zoomclone-frontend"
-        source: pull
+    # - name: Pull client image
+    #   docker_image:
+    #     name: "zoomclone-frontend"
+    #     source: pull
 
-    - name: Copy Docker Compose file to host
-      copy:
-        src: /var/lib/jenkins/workspace/Videochat/docker-compose.yml
-        dest: /opt/docker-compose.yml
+    # - name: Copy Docker Compose file to host
+    #   copy:
+    #     src: /var/lib/jenkins/workspace/Videochat/docker-compose.yml
+    #     dest: /opt/docker-compose.yml
 
-    - name: Run containers using docker-compose
-      command: docker-compose up -d
+    # - name: Run containers using docker-compose
+    #   command: docker-compose up -d
+    #   args:
+    #     chdir: /opt/
+
+    - name : Run containers using docker-compose
+      command : docker-compose up -d
       args:
-        chdir: /opt/
+      chdir: /var/lib/jenkins/workspace/Videochat
+
