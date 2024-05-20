@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'docker build -t brij8511/backend:latest .'
+                        sh 'docker build -t brij8511/node-js:0.0.0 .'
                     }
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'docker build -t brij8511/frontend:latest .'
+                        sh 'docker build -t alpine/latest .'
                     }
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        sh 'docker run --rm brij8511/backend:latest npm test'
+                        sh 'docker run --rm brij8511/node-js:0.0.0 npm test'
                     }
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        sh 'docker run --rm brij8511/frontend:latest npm test'
+                        sh 'docker run --rm alpine/latest npm test'
                     }
                 }
             }
@@ -58,8 +58,8 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push brij8511/backend:latest'
-                    sh 'docker push brij8511/frontend:latest'
+                    sh 'docker push brij8511/node-js:0.0.0'
+                    sh 'docker push alpine/latest'
                 }
             }
         }
