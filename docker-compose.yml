@@ -1,9 +1,5 @@
 # version: '2.6'
 
-networks:
-  video-chat-network:
-    driver: bridge
-
 services:
   backend:
     build: .
@@ -11,8 +7,7 @@ services:
       - "5000:5000"
     networks:
       - video-chat-network
-    depends_on:
-      - elasticsearch
+
 
   frontend:
     build: ./frontend
@@ -21,23 +16,7 @@ services:
     networks:
       - video-chat-network
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    ports:
-      - "9200:9200"
-    networks:
-      - video-chat-network
+networks:
+video-chat-network:
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.13.2
-    ports:
-      - "5601:5601"
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    networks:
-      - video-chat-network
-    depends_on:
-      - elasticsearch
+
