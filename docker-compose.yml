@@ -8,7 +8,6 @@ services:
     networks:
       - video-chat-network
 
-
   frontend:
     build: ./frontend
     ports:
@@ -17,6 +16,4 @@ services:
       - video-chat-network
 
 networks:
-video-chat-network:
-
-
+  video-chat-network:
